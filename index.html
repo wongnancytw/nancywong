@@ -20,6 +20,7 @@
       background: radial-gradient(circle at top, #0b1220, #050814);
       color: #e5e7eb;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -54,6 +55,14 @@
       max-width: 1050px;
       margin: auto;
       padding: 7rem 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* HERO */
@@ -63,6 +72,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      opacity: 1 !important;
+      transform: none !important;
     }
 
     .badge {
@@ -76,18 +87,19 @@
     }
 
     .hero h1 {
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       font-weight: 700;
-      background: linear-gradient(90deg, #fff, #93c5fd);
+      background: linear-gradient(90deg, #fff, #93c5fd, #60a5fa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      min-height: 4.2rem;
     }
 
     .hero p {
       margin-top: 1rem;
-      max-width: 600px;
+      max-width: 650px;
       color: #94a3b8;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
 
     .buttons {
@@ -97,7 +109,7 @@
     }
 
     .btn {
-      padding: 0.7rem 1.2rem;
+      padding: 0.75rem 1.2rem;
       border-radius: 10px;
       font-weight: 500;
       transition: 0.2s;
@@ -109,6 +121,7 @@
     }
 
     .primary:hover {
+      transform: translateY(-2px);
       background: #1d4ed8;
     }
 
@@ -120,11 +133,12 @@
     .secondary:hover {
       border-color: #60a5fa;
       color: #60a5fa;
+      transform: translateY(-2px);
     }
 
     /* SECTIONS */
     h2 {
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       margin-bottom: 1.5rem;
       color: #f1f5f9;
     }
@@ -133,15 +147,31 @@
     .card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 1.4rem;
-      transition: 0.25s;
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(96,165,250,0.1), transparent);
+      transition: 0.5s;
+    }
+
+    .card:hover::before {
+      left: 100%;
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
       border-color: rgba(96,165,250,0.4);
-      background: rgba(255,255,255,0.06);
     }
 
     .grid {
@@ -150,7 +180,6 @@
       gap: 1rem;
     }
 
-    /* EXPERIENCE LIST */
     .timeline {
       display: flex;
       flex-direction: column;
@@ -168,16 +197,29 @@
       margin-bottom: 0.5rem;
     }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 3rem;
       color: #64748b;
       font-size: 0.9rem;
     }
+
+    /* floating glow */
+    .glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(96,165,250,0.15), transparent 60%);
+      top: -200px;
+      right: -200px;
+      filter: blur(60px);
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
+
+<div class="glow"></div>
 
 <nav>
   <a href="#about">About</a>
@@ -187,13 +229,11 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="about">
   <div class="badge">Computer Engineering @ University of Toronto</div>
-  <h1>Nancy Wong</h1>
+  <h1 id="typing"></h1>
   <p>
-    Software & data-focused engineer building automation systems, analytics dashboards,
-    and full-stack applications across enterprise and startup environments.
+    Software & data-focused engineer building automation systems, dashboards, and full-stack applications across enterprise and startup environments.
   </p>
 
   <div class="buttons">
@@ -202,70 +242,56 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <h2>Experience</h2>
 
   <div class="timeline">
-
     <div class="card">
       <div class="role-title">Co-Founder — Isla (U of T Hatchery)</div>
-      <div class="role-meta">May 2026 – Present · Toronto</div>
-      <p>Building an AI-powered outfit decision-support platform. Leading product strategy and system design.</p>
+      <div class="role-meta">May 2026 – Present</div>
+      <p>Leading AI wardrobe startup focused on personalization and decision support systems.</p>
     </div>
 
     <div class="card">
       <div class="role-title">IT System Analyst — Enbridge</div>
-      <div class="role-meta">May 2024 – Aug 2025 · Toronto</div>
-      <p>
-        Built VBA automation tools and Power BI dashboards improving operational efficiency by up to 40%
-        and increasing reporting visibility by 30%.
-      </p>
+      <div class="role-meta">May 2024 – Aug 2025</div>
+      <p>Built automation tools and dashboards improving operational efficiency and reporting visibility.</p>
     </div>
 
     <div class="card">
       <div class="role-title">Application Developer — CIBC</div>
-      <div class="role-meta">May 2022 – Aug 2022 · Toronto</div>
-      <p>
-        Worked on Java testing, API validation, and Agile development workflows, reducing release defects by 20%.
-      </p>
+      <div class="role-meta">May 2022 – Aug 2022</div>
+      <p>Worked on API testing, Java validation, and Agile development cycles in enterprise systems.</p>
     </div>
-
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <h2>Projects</h2>
 
   <div class="grid">
-
     <div class="card">
       <h3>AI Wardrobe App</h3>
-      <p>React Native mobile app with AI recommendations and offline caching optimization.</p>
+      <p>React Native app with AI recommendations and offline caching optimization.</p>
     </div>
 
     <div class="card">
       <h3>Gamified Productivity App</h3>
-      <p>Task system with game mechanics built using Agile workflows and iterative UX design.</p>
+      <p>Task system with game mechanics built using Agile workflows.</p>
     </div>
-
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <h2>Skills</h2>
 
   <div class="card">
-    <p><b>Languages:</b> Python, Java, JavaScript, C++, SQL, VBA</p>
-    <p><b>Frameworks:</b> React Native, Django, Firebase, REST APIs</p>
-    <p><b>Tools:</b> GitHub, Azure DevOps, Power BI, Postman, Jenkins</p>
-    <p><b>Concepts:</b> Agile, CI/CD, Data Visualization, Full-Stack Development</p>
+    <p><b>Languages:</b> Python, Java, JavaScript, C++, SQL</p>
+    <p><b>Frameworks:</b> React Native, Django, Firebase</p>
+    <p><b>Tools:</b> GitHub, Azure DevOps, Power BI, Postman</p>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <h2>Contact</h2>
 
@@ -276,8 +302,34 @@
 </section>
 
 <footer>
-  © 2026 Nancy Wong · Built with HTML, CSS, and GitHub Pages
+  © 2026 Nancy Wong · Built with GitHub Pages
 </footer>
+
+<script>
+  // typing animation
+  const text = "Nancy Wong";
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      document.getElementById("typing").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, 120);
+    }
+  }
+  type();
+
+  // scroll reveal
+  const sections = document.querySelectorAll("section");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(sec => observer.observe(sec));
+</script>
 
 </body>
 </html>
