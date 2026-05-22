@@ -12,7 +12,8 @@
       --bg:#05060a;
       --text:#eaf0ff;
       --muted:#9aa4b2;
-      --accent:#6ea8ff;
+      --accent:#7c5cff;
+      --accent2:#2ee59d;
       --glass: rgba(255,255,255,0.06);
       --stroke: rgba(255,255,255,0.10);
     }
@@ -26,27 +27,29 @@
     }
 
     body{
-      background: radial-gradient(1200px 600px at 20% 0%, #132042 0%, transparent 60%),
-                  radial-gradient(900px 500px at 80% 10%, #1a2b55 0%, transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, #1a1440 0%, transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, #0f3b2e 0%, transparent 55%),
+        var(--bg);
       color:var(--text);
       overflow-x:hidden;
+      cursor: default;
     }
 
-    /* CURSOR GLOW */
+    /* FUN CURSOR GLOW */
     .cursor-glow{
       position:fixed;
-      width:400px;
-      height:400px;
+      width:300px;
+      height:300px;
       border-radius:50%;
       pointer-events:none;
-      background:radial-gradient(circle, rgba(110,168,255,0.18), transparent 60%);
+      background:radial-gradient(circle, rgba(124,92,255,0.25), transparent 60%);
       transform:translate(-50%,-50%);
       mix-blend-mode:screen;
       z-index:0;
+      transition: transform 0.1s linear;
     }
 
-    /* NAV */
     nav{
       position:fixed;
       top:0;
@@ -56,7 +59,7 @@
       gap:2rem;
       padding:1rem;
       backdrop-filter: blur(18px);
-      background:rgba(0,0,0,0.3);
+      background:rgba(0,0,0,0.35);
       border-bottom:1px solid var(--stroke);
       z-index:1000;
     }
@@ -65,10 +68,26 @@
       color:var(--muted);
       font-size:0.9rem;
       transition:0.3s;
+      position:relative;
+    }
+
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:0;
+      height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      transition:0.3s;
     }
 
     nav a:hover{
       color:var(--text);
+    }
+
+    nav a:hover::after{
+      width:100%;
     }
 
     section{
@@ -94,19 +113,34 @@
       position:relative;
     }
 
-    .eyebrow{
-      color:var(--accent);
+    .badge{
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+      padding:0.4rem 0.8rem;
+      border-radius:999px;
+      background:rgba(124,92,255,0.12);
+      border:1px solid rgba(124,92,255,0.25);
+      color:#c7b8ff;
       font-size:0.85rem;
-      letter-spacing:0.15em;
-      text-transform:uppercase;
+      width:fit-content;
       margin-bottom:1rem;
     }
 
     h1{
       font-size:4rem;
-      font-weight:600;
+      font-weight:650;
       letter-spacing:-0.03em;
-      line-height:1.1;
+      line-height:1.05;
+      background:linear-gradient(90deg,#fff,#b7a6ff,#5cf2c1);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation: glowText 6s ease-in-out infinite;
+    }
+
+    @keyframes glowText{
+      0%,100%{filter:brightness(1)}
+      50%{filter:brightness(1.2)}
     }
 
     .subtitle{
@@ -123,31 +157,49 @@
     }
 
     .btn{
-      padding:0.8rem 1.2rem;
-      border-radius:12px;
+      padding:0.85rem 1.2rem;
+      border-radius:14px;
       border:1px solid var(--stroke);
       color:var(--text);
-      transition:0.3s;
       background:var(--glass);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      transition:0.25s;
+      position:relative;
+      overflow:hidden;
     }
 
     .btn.primary{
-      background:linear-gradient(135deg,#2b6fff,#6ea8ff);
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
       border:none;
+      color:#0b0b0f;
+      font-weight:600;
     }
 
     .btn:hover{
-      transform:translateY(-3px);
+      transform:translateY(-4px) rotate(-0.2deg);
+    }
+
+    .btn::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-120%;
+      width:100%;
+      height:100%;
+      background:rgba(255,255,255,0.25);
+      transform:skewX(-20deg);
+      transition:0.6s;
+    }
+
+    .btn:hover::after{
+      left:120%;
     }
 
     h2{
       font-size:2rem;
       margin-bottom:2rem;
-      letter-spacing:-0.02em;
     }
 
-    /* CARDS */
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -156,32 +208,34 @@
 
     .card{
       padding:1.6rem;
-      border-radius:16px;
+      border-radius:18px;
       background:var(--glass);
       border:1px solid var(--stroke);
       backdrop-filter: blur(16px);
-      transition:0.4s;
+      transition:0.35s;
       position:relative;
       overflow:hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:-120%;
-      width:100%;
-      height:100%;
-      background:linear-gradient(120deg,transparent,rgba(110,168,255,0.12),transparent);
-      transition:0.6s;
-    }
-
-    .card:hover::before{
-      left:120%;
+      cursor:pointer;
     }
 
     .card:hover{
-      transform:translateY(-6px) scale(1.01);
+      transform:translateY(-8px) scale(1.02);
+      border-color:rgba(124,92,255,0.4);
+    }
+
+    .card::before{
+      content:"✨";
+      position:absolute;
+      right:12px;
+      top:12px;
+      opacity:0;
+      transform:scale(0.5);
+      transition:0.3s;
+    }
+
+    .card:hover::before{
+      opacity:1;
+      transform:scale(1);
     }
 
     .role-title{font-weight:600;}
@@ -193,31 +247,33 @@
       color:var(--muted);
     }
 
-    /* subtle floating blobs */
-    .blob{
+    /* floating emojis */
+    .float-emoji{
       position:fixed;
-      width:600px;
-      height:600px;
-      background:radial-gradient(circle,rgba(110,168,255,0.18),transparent 60%);
-      filter:blur(80px);
+      font-size:1.5rem;
+      opacity:0.15;
+      animation:float 10s infinite ease-in-out;
       z-index:0;
-      animation:float 12s ease-in-out infinite;
+      pointer-events:none;
     }
 
-    .blob.one{top:-200px;right:-200px;}
-    .blob.two{bottom:-250px;left:-250px;animation-delay:3s;}
+    .e1{top:20%;left:10%;}
+    .e2{top:70%;left:80%;animation-delay:2s;}
+    .e3{top:40%;left:60%;animation-delay:4s;}
 
     @keyframes float{
       0%,100%{transform:translateY(0)}
-      50%{transform:translateY(40px)}
+      50%{transform:translateY(25px)}
     }
   </style>
 </head>
 <body>
 
 <div class="cursor-glow" id="glow"></div>
-<div class="blob one"></div>
-<div class="blob two"></div>
+
+<div class="float-emoji e1">💡</div>
+<div class="float-emoji e2">🚀</div>
+<div class="float-emoji e3">✨</div>
 
 <nav>
   <a href="#about">About</a>
@@ -227,15 +283,15 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<section class="hero" id="about">
-  <div class="eyebrow">Computer Engineering · University of Toronto</div>
+<section class="hero show" id="about">
+  <div class="badge">🚀 Computer Engineering @ UofT</div>
   <h1>Nancy Wong</h1>
   <div class="subtitle">
-    Building software systems, automation tools, and AI-driven applications across enterprise and startup environments.
+    I build smart systems, automate workflows, and create delightful AI-powered experiences.
   </div>
   <div class="cta">
-    <a class="btn primary" href="#projects">View Work</a>
-    <a class="btn" href="#contact">Contact</a>
+    <a class="btn primary" href="#projects">✨ See My Work</a>
+    <a class="btn" href="#contact">Say Hi 👋</a>
   </div>
 </section>
 
@@ -243,21 +299,21 @@
   <h2>Experience</h2>
   <div class="grid">
     <div class="card">
-      <div class="role-title">Co-Founder — Isla</div>
-      <div class="role-meta">U of T Hatchery · 2026–Present</div>
-      <p>AI-powered outfit decision platform focused on personalization and intelligent recommendations.</p>
+      <div class="role-title">Co-Founder — Isla 🌈</div>
+      <div class="role-meta">U of T Hatchery</div>
+      <p>Building an AI outfit assistant that helps people decide what to wear effortlessly.</p>
     </div>
 
     <div class="card">
-      <div class="role-title">IT System Analyst — Enbridge</div>
-      <div class="role-meta">2024–2025</div>
-      <p>Built automation tools and dashboards improving operational efficiency by up to 40%.</p>
+      <div class="role-title">Enbridge ⚡</div>
+      <div class="role-meta">IT System Analyst</div>
+      <p>Automated workflows and dashboards improving efficiency by 40%.</p>
     </div>
 
     <div class="card">
-      <div class="role-title">Application Developer — CIBC</div>
-      <div class="role-meta">2022</div>
-      <p>Worked on API testing, Java systems, and Agile workflows reducing defects by 20%.</p>
+      <div class="role-title">CIBC 🏦</div>
+      <div class="role-meta">Application Developer</div>
+      <p>Worked on APIs, testing, and Agile delivery with measurable defect reduction.</p>
     </div>
   </div>
 </section>
@@ -266,13 +322,13 @@
   <h2>Projects</h2>
   <div class="grid">
     <div class="card">
-      <h3>AI Wardrobe App</h3>
-      <p>React Native AI recommendation system with offline caching and performance optimization.</p>
+      <div class="role-title">AI Wardrobe App 👗</div>
+      <p>AI-powered outfit recommendations with React Native.</p>
     </div>
 
     <div class="card">
-      <h3>Gamified Productivity App</h3>
-      <p>Task system with game mechanics built using Agile development and UX iteration.</p>
+      <div class="role-title">Gamified Productivity 🐣</div>
+      <p>Turned tasks into a game where users grow a digital pet.</p>
     </div>
   </div>
 </section>
@@ -280,36 +336,34 @@
 <section id="skills">
   <h2>Skills</h2>
   <div class="card">
-    Python · Java · JavaScript · C++ · SQL · React Native · Django · Firebase · Power BI · Azure · Postman
+    Python · Java · JS · SQL · React Native · Django · Firebase · Power BI · Azure 🚀
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
   <div class="card">
-    wongnancytw@gmail.com · linkedin.com/in/wongnancytw
+    wongnancytw@gmail.com · linkedin.com/in/wongnancytw 👋
   </div>
 </section>
 
 <footer>
-  © 2026 Nancy Wong
+  Made with curiosity ✨ · 2026 Nancy Wong
 </footer>
 
 <script>
-  // cursor glow
   const glow = document.getElementById('glow');
   window.addEventListener('mousemove', (e)=>{
     glow.style.left = e.clientX + 'px';
     glow.style.top = e.clientY + 'px';
   });
 
-  // scroll reveal
   const sections = document.querySelectorAll('section');
   const obs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting) e.target.classList.add('show');
     });
-  },{threshold:0.12});
+  },{threshold:0.1});
 
   sections.forEach(s=>obs.observe(s));
 </script>
