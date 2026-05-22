@@ -103,7 +103,16 @@
 
     h2{font-size:2rem;margin-bottom:2rem;}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1rem;
+    }
+
+    /* FIX EXPERIENCE GRID */
+    @media (min-width: 900px){
+      #experience .grid{grid-template-columns:repeat(2,1fr);}
+    }
 
     .card{
       padding:1.6rem;
@@ -178,7 +187,7 @@
   <div class="badge">North York, Toronto · Open to Opportunities</div>
   <h1>Nancy Wong</h1>
   <div class="subtitle">
-    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full‑stack applications across enterprise (Enbridge, CIBC) and startup environments. Strong in Python, SQL, and Power BI, focused on automation and efficiency.
+    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Strong in Python, SQL, and Power BI, focused on automation and efficiency.
   </div>
 </section>
 
@@ -201,29 +210,29 @@
       <div class="role-title">Co-Founder — Isla</div>
       <div class="role-meta">U of T Entrepreneurship Hatchery · May 2026 – Present</div>
       <p>Selected into competitive startup accelerator supporting high-potential ventures.</p>
-      <p>Driving product strategy for an AI-powered outfit decision-support platform using personalization tools.</p>
+      <p>Driving product strategy for AI-powered outfit decision-support platform.</p>
     </div>
 
     <div class="card">
       <div class="role-title">IT System Analyst — Enbridge</div>
       <div class="role-meta">May 2024 – August 2025</div>
-      <p>Built VBA automation reducing Azure DevOps retrieval and scheduling effort by 40%.</p>
-      <p>Developed Power BI dashboards improving reporting visibility by 30%.</p>
-      <p>Designed Power Apps solution for overtime scheduling optimization.</p>
+      <p>Built VBA automation reducing Azure DevOps effort by 40%.</p>
+      <p>Developed Power BI dashboards improving visibility by 30%.</p>
+      <p>Designed Power Apps solution for scheduling optimization.</p>
     </div>
 
     <div class="card">
       <div class="role-title">Application Developer — CIBC</div>
       <div class="role-meta">May 2022 – August 2022</div>
-      <p>Functional testing in Confluence improving traceability by 50%.</p>
-      <p>Java development and debugging reducing release-cycle defects by 20%.</p>
-      <p>API testing using Postman in Agile/ServiceNow environments.</p>
+      <p>Functional testing improved traceability by 50%.</p>
+      <p>Reduced release-cycle defects by 20% via Java debugging.</p>
+      <p>Performed API testing using Postman.</p>
     </div>
 
     <div class="card">
-      <div class="role-title">Communications Manager — North York Christian Community Church</div>
+      <div class="role-title">Communications Manager — Church</div>
       <div class="role-meta">May 2021 – July 2021</div>
-      <p>Redesigned website increasing engagement by 70%.</p>
+      <p>Website redesign increased engagement by 70%.</p>
       <p>Email campaigns using MailChimp and Canva.</p>
     </div>
 
@@ -236,12 +245,27 @@
 
     <div class="card" onclick="openModal('capstone')">
       <div class="role-title">Capstone — AI Wardrobe App</div>
-      <p>React Native + AI recommendations + offline caching</p>
+      <p>React Native + AI + caching</p>
     </div>
 
     <div class="card" onclick="openModal('productivity')">
       <div class="role-title">Gamified Productivity App</div>
-      <p>Digital pet task system with Agile development</p>
+      <p>Digital pet task system</p>
+    </div>
+
+    <div class="card" onclick="openModal('skittle')">
+      <div class="role-title">Skittle Sorter</div>
+      <p>C + Arduino system</p>
+    </div>
+
+    <div class="card" onclick="openModal('floppy')">
+      <div class="role-title">Floppy Disk Music Box</div>
+      <p>C + hardware music system</p>
+    </div>
+
+    <div class="card" onclick="openModal('geo')">
+      <div class="role-title">Geographical System Interface</div>
+      <p>C++ + Glade UI</p>
     </div>
 
   </div>
@@ -251,20 +275,20 @@
   <h2>Skills</h2>
   <div class="card">
     Programming: Python, Java, JavaScript, C++, C, SQL, HTML/CSS, VBA, DAX, MATLAB, Verilog, Assembly<br/><br/>
-    Frameworks: React Native, Django, Firebase, PostgreSQL, Azure, REST APIs, Microsoft Office<br/><br/>
-    Tools: GitHub, Azure DevOps, Jenkins, Power BI, Postman, ServiceNow, qTest, Confluence, Figma<br/><br/>
-    Concepts: Agile, CI/CD, API Testing, Data Visualization, Full‑Stack Development<br/><br/>
-    Languages: English (native), Cantonese (native), French (fluent), Mandarin (fluent)
+    Frameworks: React Native, Django, Firebase, PostgreSQL, Azure, REST APIs<br/><br/>
+    Tools: GitHub, Azure DevOps, Jenkins, Power BI, Postman, ServiceNow, Confluence, Figma<br/><br/>
+    Concepts: Agile, CI/CD, API Testing, Data Visualization, Full-Stack Development<br/><br/>
+    Languages: English, Cantonese, French, Mandarin
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
   <div class="card">
-    📍 North York, Toronto, ON<br/>
-    📞 416-391-0322<br/>
-    📧 wongnancytw@gmail.com<br/>
-    🔗 linkedin.com/in/wongnancytw
+    North York, Toronto, ON<br/>
+    416-391-0322<br/>
+    wongnancytw@gmail.com<br/>
+    linkedin.com/in/wongnancytw
   </div>
 </section>
 
@@ -293,14 +317,29 @@
 
   const projects={
     capstone:{
-      title:"University Capstone — AI Wardrobe App",
+      title:"Capstone — AI Wardrobe App",
       img:"images/Online_Outfitter_Pic.png",
-      desc:`Awarded Capstone recognition. Built React Native app for wardrobe management with AI recommendations and offline caching improving performance by 20%.`
+      desc:`React Native AI wardrobe system with offline caching and recommendations.`
     },
     productivity:{
       title:"Gamified Productivity App",
       img:"images/Motivatchi_Pic.png",
-      desc:`Built gamified task system turning daily tasks into a digital pet experience using Agile sprints and GitHub project tracking improving throughput by 20%.`
+      desc:`Agile-built task system with gamified digital pet mechanics.`
+    },
+    skittle:{
+      title:"Skittle Colour Sorter",
+      img:"image/Skittle_Sorter_Pic.png",
+      desc:`Built automated Skittle sorting machine using C and Arduino for real-time color detection and categorization.`
+    },
+    floppy:{
+      title:"Floppy Disk Music Box",
+      img:"image/Floppy_Disk_Music_Box_Pic.png",
+      desc:`Engineered music system using floppy disk drive controlled via C and Arduino.`
+    },
+    geo:{
+      title:"Geographical System Interface",
+      img:"image/Geographical_System_Pic.png",
+      desc:`Built C++ geospatial system with Glade UI for visualization and interaction.`
     }
   };
 
