@@ -9,13 +9,15 @@
 
   <style>
     :root{
-      --bg:#05060a;
-      --text:#eaf0ff;
+      --bg:#0b0d12;
+      --surface:#111522;
+      --surface2:#0f1320;
+      --text:#eef2ff;
       --muted:#9aa4b2;
       --accent:#7c5cff;
       --accent2:#2ee59d;
-      --glass: rgba(255,255,255,0.06);
-      --stroke: rgba(255,255,255,0.10);
+      --stroke: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
     }
 
     *{
@@ -28,20 +30,30 @@
 
     body{
       background:
-        radial-gradient(1200px 600px at 20% 0%, #1a1440 0%, transparent 60%),
-        radial-gradient(900px 500px at 80% 10%, #0f3b2e 0%, transparent 55%),
+        radial-gradient(900px 500px at 10% 0%, rgba(124,92,255,0.25), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(46,229,157,0.15), transparent 55%),
         var(--bg);
       color:var(--text);
       overflow-x:hidden;
     }
 
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity:0.05;
+      z-index:0;
+    }
+
     .cursor-glow{
       position:fixed;
-      width:300px;
-      height:300px;
+      width:400px;
+      height:400px;
       border-radius:50%;
       pointer-events:none;
-      background:radial-gradient(circle, rgba(124,92,255,0.25), transparent 60%);
+      background:radial-gradient(circle, rgba(124,92,255,0.18), transparent 60%);
       transform:translate(-50%,-50%);
       mix-blend-mode:screen;
       z-index:0;
@@ -49,116 +61,170 @@
 
     nav{
       position:fixed;
-      top:0;
-      width:100%;
+      top:18px;
+      left:50%;
+      transform:translateX(-50%);
       display:flex;
-      justify-content:center;
-      gap:2rem;
-      padding:1rem;
+      gap:1.5rem;
+      padding:0.7rem 1.2rem;
+      border-radius:999px;
+      background:rgba(17,21,34,0.75);
       backdrop-filter: blur(18px);
-      background:rgba(0,0,0,0.35);
-      border-bottom:1px solid var(--stroke);
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
       z-index:1000;
     }
 
-    nav a{color:var(--muted);font-size:0.9rem;transition:0.3s;}
-    nav a:hover{color:var(--text);}
+    nav a{
+      color:var(--muted);
+      font-size:0.9rem;
+      text-decoration:none;
+      transition:0.25s;
+    }
+
+    nav a:hover{ color:var(--text); }
 
     section{
       max-width:1100px;
       margin:auto;
-      padding:8rem 1.5rem;
+      padding:7rem 1.5rem;
       opacity:0;
-      transform:translateY(40px);
-      transition:1s cubic-bezier(.2,.8,.2,1);
+      transform:translateY(30px);
+      transition:0.8s ease;
+      position:relative;
+      z-index:1;
     }
 
-    section.show{opacity:1;transform:translateY(0);}
+    section.show{
+      opacity:1;
+      transform:translateY(0);
+    }
 
-    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;}
+    .hero{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
 
     .badge{
       display:inline-flex;
-      padding:0.4rem 0.8rem;
+      padding:0.45rem 0.9rem;
       border-radius:999px;
       background:rgba(124,92,255,0.12);
       border:1px solid rgba(124,92,255,0.25);
       color:#c7b8ff;
       font-size:0.85rem;
       margin-bottom:1rem;
-      width:fit-content;
     }
 
     h1{
-      font-size:4rem;
-      font-weight:650;
-      letter-spacing:-0.03em;
+      font-size:4.2rem;
+      font-weight:700;
+      letter-spacing:-0.04em;
       line-height:1.05;
-      background:linear-gradient(90deg,#fff,#b7a6ff,#5cf2c1);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
     }
 
-    .subtitle{margin-top:1rem;color:var(--muted);max-width:800px;font-size:1.1rem;}
+    .subtitle{
+      margin-top:1.2rem;
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
 
-    h2{font-size:2rem;margin-bottom:2rem;}
+    h2{
+      font-size:1.4rem;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      color:#cfd6ff;
+      margin-bottom:2rem;
+      display:flex;
+      align-items:center;
+      gap:1rem;
+    }
+
+    h2::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:linear-gradient(90deg,var(--accent),transparent);
+      opacity:0.5;
+    }
 
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:1rem;
-    }
-
-    /* FIX EXPERIENCE GRID */
-    @media (min-width: 900px){
-      #experience .grid{grid-template-columns:repeat(2,1fr);}
+      gap:1.2rem;
     }
 
     .card{
       padding:1.6rem;
       border-radius:18px;
-      background:var(--glass);
+      background:linear-gradient(180deg,var(--surface),var(--surface2));
       border:1px solid var(--stroke);
-      backdrop-filter: blur(16px);
-      transition:0.3s;
+      box-shadow: var(--shadow);
+      transition:0.25s ease;
       cursor:pointer;
+      position:relative;
+      overflow:hidden;
     }
 
-    .card:hover{transform:translateY(-6px);border-color:rgba(124,92,255,0.4);}
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      padding:1px;
+      border-radius:18px;
+      background:linear-gradient(120deg,rgba(124,92,255,0.5),rgba(46,229,157,0.2));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+      opacity:0;
+      transition:0.3s;
+    }
 
-    .role-title{font-weight:600;}
-    .role-meta{color:var(--muted);font-size:0.9rem;margin-bottom:0.5rem;}
+    .card:hover{
+      transform:translateY(-6px);
+    }
 
-    footer{text-align:center;padding:4rem;color:var(--muted);}
+    .card:hover::before{
+      opacity:1;
+    }
+
+    .role-title{ font-weight:600; margin-bottom:0.3rem; }
+    .role-meta{ color:var(--muted); font-size:0.9rem; margin-bottom:0.6rem; }
+
+    footer{
+      text-align:center;
+      padding:4rem;
+      color:var(--muted);
+    }
 
     .modal{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,0.7);
+      background:rgba(0,0,0,0.75);
       display:none;
       align-items:center;
       justify-content:center;
       z-index:2000;
       padding:2rem;
+      backdrop-filter: blur(10px);
     }
 
     .modal-content{
-      background:#0b0f1a;
+      background:linear-gradient(180deg,#111522,#0b0f1a);
       border:1px solid var(--stroke);
       border-radius:18px;
       max-width:900px;
       width:100%;
       overflow:hidden;
-      animation:pop 0.25s ease;
     }
 
-    @keyframes pop{
-      from{transform:scale(0.95);opacity:0}
-      to{transform:scale(1);opacity:1}
-    }
-
-    .modal img{width:100%;height:380px;object-fit:cover;}
-    .modal-body{padding:1.5rem;}
+    .modal img{ width:100%; height:380px; object-fit:cover; }
+    .modal-body{ padding:1.5rem; }
 
     .close{
       position:absolute;
@@ -170,6 +236,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div class="cursor-glow" id="glow"></div>
@@ -187,55 +254,39 @@
   <div class="badge">North York, Toronto · Open to Opportunities</div>
   <h1>Nancy Wong</h1>
   <div class="subtitle">
-    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Strong in Python, SQL, and Power BI, focused on automation and efficiency.
+    Computer Engineering graduate at the University of Toronto with experience in automation, analytics, and full-stack development across enterprise and startup environments.
   </div>
 </section>
 
 <section id="education">
   <h2>Education</h2>
   <div class="card">
-    <div class="role-title">University of Toronto — BASc Electrical & Computer Engineering (PEY Co-op)</div>
-    <div class="role-meta">September 2020 – April 2026</div>
-    <p>Engineering Business Minor · AI Certificate</p>
-    <p>Relevant Coursework: Software Engineering, AI Fundamentals, Introduction to Databases</p>
-    <p>Achievements: Dean’s Honour List (Fall 2025), Certificate of Recognition (ECE496 Capstone)</p>
+    University of Toronto — BASc Electrical & Computer Engineering<br/>
+    Sep 2020 – Apr 2026<br/><br/>
+    AI Certificate · Business Minor
   </div>
 </section>
 
 <section id="experience">
   <h2>Experience</h2>
   <div class="grid">
-
     <div class="card">
       <div class="role-title">Co-Founder — Isla</div>
-      <div class="role-meta">U of T Entrepreneurship Hatchery · May 2026 – Present</div>
-      <p>Selected into competitive startup accelerator supporting high-potential ventures.</p>
-      <p>Driving product strategy for AI-powered outfit decision-support platform.</p>
+      <div class="role-meta">2026 – Present</div>
+      <p>AI outfit decision-support platform.</p>
     </div>
 
     <div class="card">
-      <div class="role-title">IT System Analyst — Enbridge</div>
-      <div class="role-meta">May 2024 – August 2025</div>
-      <p>Built VBA automation reducing Azure DevOps effort by 40%.</p>
-      <p>Developed Power BI dashboards improving visibility by 30%.</p>
-      <p>Designed Power Apps solution for scheduling optimization.</p>
+      <div class="role-title">IT Analyst — Enbridge</div>
+      <div class="role-meta">2024 – 2025</div>
+      <p>Automation + Power BI dashboards.</p>
     </div>
 
     <div class="card">
-      <div class="role-title">Application Developer — CIBC</div>
-      <div class="role-meta">May 2022 – August 2022</div>
-      <p>Functional testing improved traceability by 50%.</p>
-      <p>Reduced release-cycle defects by 20% via Java debugging.</p>
-      <p>Performed API testing using Postman.</p>
+      <div class="role-title">Developer — CIBC</div>
+      <div class="role-meta">2022</div>
+      <p>Testing, debugging, API validation.</p>
     </div>
-
-    <div class="card">
-      <div class="role-title">Communications Manager — Church</div>
-      <div class="role-meta">May 2021 – July 2021</div>
-      <p>Website redesign increased engagement by 70%.</p>
-      <p>Email campaigns using MailChimp and Canva.</p>
-    </div>
-
   </div>
 </section>
 
@@ -244,28 +295,15 @@
   <div class="grid">
 
     <div class="card" onclick="openModal('capstone')">
-      <div class="role-title">Capstone — AI Wardrobe App</div>
-      <p>React Native + AI + caching</p>
+      AI Wardrobe App
     </div>
 
     <div class="card" onclick="openModal('productivity')">
-      <div class="role-title">Gamified Productivity App</div>
-      <p>Digital pet task system</p>
+      Productivity App
     </div>
 
     <div class="card" onclick="openModal('skittle')">
-      <div class="role-title">Skittle Sorter</div>
-      <p>C + Arduino system</p>
-    </div>
-
-    <div class="card" onclick="openModal('floppy')">
-      <div class="role-title">Floppy Disk Music Box</div>
-      <p>C + hardware music system</p>
-    </div>
-
-    <div class="card" onclick="openModal('geo')">
-      <div class="role-title">Geographical System Interface</div>
-      <p>C++ + Glade UI</p>
+      Skittle Sorter
     </div>
 
   </div>
@@ -274,21 +312,15 @@
 <section id="skills">
   <h2>Skills</h2>
   <div class="card">
-    Programming: Python, Java, JavaScript, C++, C, SQL, HTML/CSS, VBA, DAX, MATLAB, Verilog, Assembly<br/><br/>
-    Frameworks: React Native, Django, Firebase, PostgreSQL, Azure, REST APIs<br/><br/>
-    Tools: GitHub, Azure DevOps, Jenkins, Power BI, Postman, ServiceNow, Confluence, Figma<br/><br/>
-    Concepts: Agile, CI/CD, API Testing, Data Visualization, Full-Stack Development<br/><br/>
-    Languages: English, Cantonese, French, Mandarin
+    Python · Java · SQL · React Native · Power BI · Azure · Git
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
   <div class="card">
-    North York, Toronto, ON<br/>
-    416-391-0322<br/>
-    wongnancytw@gmail.com<br/>
-    linkedin.com/in/wongnancytw
+    Toronto, Canada<br/>
+    wongnancytw@gmail.com
   </div>
 </section>
 
@@ -300,57 +332,39 @@
 </div>
 
 <script>
-  const glow=document.getElementById('glow');
-  window.addEventListener('mousemove',e=>{
-    glow.style.left=e.clientX+'px';
-    glow.style.top=e.clientY+'px';
+const glow = document.getElementById('glow');
+
+window.addEventListener('mousemove', e=>{
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+const sections = document.querySelectorAll('section');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('show');
   });
+},{threshold:0.1});
 
-  const sections=document.querySelectorAll('section');
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});
-  },{threshold:0.1});
-  sections.forEach(s=>obs.observe(s));
+sections.forEach(s=>obs.observe(s));
 
-  const modal=document.getElementById('modal');
-  const content=document.getElementById('modalContent');
+const modal = document.getElementById('modal');
+const content = document.getElementById('modalContent');
 
-  const projects={
-    capstone:{
-      title:"Capstone — AI Wardrobe App",
-      img:"images/Online_Outfitters_Pic.png",
-      desc:`React Native AI wardrobe system with offline caching and recommendations.`
-    },
-    productivity:{
-      title:"Gamified Productivity App",
-      img:"images/Motivatchi_Pic.png",
-      desc:`Agile-built task system with gamified digital pet mechanics.`
-    },
-    skittle:{
-      title:"Skittle Colour Sorter",
-      img:"images/Skittle_Sorter_Pic.png",
-      desc:`Built automated Skittle sorting machine using C and Arduino for real-time color detection and categorization.`
-    },
-    floppy:{
-      title:"Floppy Disk Music Box",
-      img:"images/Floppy_Disk_Music_Box_Pic.png",
-      desc:`Engineered music system using floppy disk drive controlled via C and Arduino.`
-    },
-    geo:{
-      title:"Geographical System Interface",
-      img:"images/Geographical_System_Pic.png",
-      desc:`Built C++ geospatial system with Glade UI for visualization and interaction.`
-    }
-  };
+const projects = {
+  capstone:{title:"AI Wardrobe App", desc:"React Native AI system"},
+  productivity:{title:"Productivity App", desc:"Gamified task system"},
+  skittle:{title:"Skittle Sorter", desc:"Arduino + C system"}
+};
 
-  function openModal(key){
-    const p=projects[key];
-    content.innerHTML=`<img src="${p.img}"/><div class="modal-body"><h2>${p.title}</h2><p>${p.desc}</p></div>`;
-    modal.style.display='flex';
-  }
+function openModal(key){
+  const p = projects[key];
+  content.innerHTML = `<div class="modal-body"><h2>${p.title}</h2><p>${p.desc}</p></div>`;
+  modal.style.display='flex';
+}
 
-  function closeModal(){modal.style.display='none';}
-  window.onclick=e=>{if(e.target===modal)closeModal();};
+function closeModal(){ modal.style.display='none'; }
+window.onclick=e=>{ if(e.target===modal) closeModal(); };
 </script>
 
 </body>
