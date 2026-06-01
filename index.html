@@ -4,377 +4,227 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nancy Wong | Portfolio</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #10b981 100%);
-      --accent-primary: #6366f1;
-      --stroke: #e2e8f0;
-      --badge-bg: rgba(99, 102, 241, 0.08);
-      --badge-text: #4f46e5;
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #6366f1;
+      --secondary: #10b981;
+      --glass-border: rgba(255, 255, 255, 0.1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Sora, Inter, sans-serif;
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg);
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
       color: var(--text);
       overflow-x: hidden;
       line-height: 1.6;
     }
 
+    /* Animated Background Blobs */
+    .blob {
+      position: fixed; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      filter: blur(80px); z-index: -1; animation: move 20s infinite alternate;
+    }
+    @keyframes move { from { transform: translate(-10%, -10%); } to { transform: translate(20%, 20%); } }
+
+    /* Navigation */
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      padding: 1.2rem;
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.75);
-      border-bottom: 1px solid var(--stroke);
-      z-index: 1000;
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 2rem; padding: 1rem 2.5rem;
+      background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px);
+      border-radius: 999px; border: 1px solid var(--glass-border); z-index: 1000;
     }
+    nav a { text-decoration: none; color: var(--muted); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+    nav a:hover { color: var(--accent); }
 
-    nav a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color 0.3s ease;
+    /* Layout */
+    section { max-width: 1200px; margin: 0 auto; padding: 100px 20px; opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    /* Hero Section */
+    .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: -3px; margin-bottom: 1rem; background: linear-gradient(to right, #fff, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.25rem; color: var(--muted); max-width: 600px; }
+
+    /* Experience Cards */
+    .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: var(--card-bg); padding: 2rem; border-radius: 24px;
+      border: 1px solid var(--glass-border); transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    
-    nav a:hover { color: var(--accent-primary); }
+    .card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent); background: rgba(30, 41, 59, 0.9); }
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 8rem 1.5rem 4rem 1.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero {
-      min-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      background: var(--badge-bg);
-      border: 1px solid rgba(99, 102, 241, 0.15);
-      color: var(--badge-text);
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 1.5rem;
-      width: fit-content;
-    }
-
-    h1 {
-      font-size: 4.5rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      max-width: 750px;
-      font-size: 1.2rem;
-      line-height: 1.7;
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      position: relative;
-      display: inline-block;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 40px;
-      height: 4px;
-      background: var(--accent-gradient);
-      border-radius: 2px;
-    }
-
-    .grid {
+    /* Project Bento Grid */
+    .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 250px;
       gap: 1.5rem;
     }
-
-    @media (min-width: 900px) { #experience .grid { grid-template-columns: repeat(2, 1fr); } }
-
-    .card {
-      padding: 2rem;
-      border-radius: 20px;
-      background: var(--card-bg);
-      border: 1px solid var(--stroke);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+    .project-card {
+      position: relative; border-radius: 24px; overflow: hidden;
+      border: 1px solid var(--glass-border); cursor: pointer;
     }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(99, 102, 241, 0.3);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    .project-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(40%); }
+    .project-card:hover img { transform: scale(1.1); filter: grayscale(0%); }
+    
+    .project-overlay {
+      position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.9), transparent);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; opacity: 0.9;
     }
+    .project-card:hover .project-overlay { background: linear-gradient(to top, var(--accent), transparent); }
 
-    .clickable-card { cursor: pointer; }
+    /* Grid Sizing */
+    .large { grid-column: span 4; }
+    .medium { grid-column: span 2; }
+    .tall { grid-row: span 2; grid-column: span 2; }
 
-    .role-title { font-weight: 600; font-size: 1.15rem; color: var(--text); }
-    .role-meta { color: var(--accent-primary); font-size: 0.88rem; font-weight: 500; }
-    .card p { color: var(--muted); font-size: 0.95rem; }
+    /* Pills */
+    .pill-box { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .pill { padding: 0.4rem 1rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 99px; font-size: 0.75rem; color: #a5b4fc; }
 
-    /* Skills Pill Layout */
-    .skills-container { display: flex; flex-direction: column; gap: 1.5rem; }
-    .skill-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .skill-label { font-weight: 600; font-size: 0.9rem; color: var(--text); text-transform: uppercase; letter-spacing: 0.05em; }
-    .pill-wrapper { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .pill { background: #f1f5f9; padding: 0.4rem 0.9rem; border-radius: 8px; font-size: 0.85rem; color: #334155; font-weight: 500; border: 1px solid #e2e8f0; }
-
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 15px;
-      background: var(--accent-gradient); color: white; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); z-index: 1500;
-      opacity: 0; visibility: hidden; transform: translateY(10px);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Back to Top */
+    .btt {
+      position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+      background: var(--accent); color: white; border: none; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4); opacity: 0; transition: 0.3s;
     }
-    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .btt.show { opacity: 1; }
 
-    footer { text-align: center; padding: 5rem 2rem; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--stroke); background: #fff; }
-
-    /* Modal Styling */
-    .modal {
-      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px);
-      display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1.5rem;
+    @media (max-width: 768px) {
+      .project-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .large, .medium, .tall { grid-column: span 1; grid-row: span 1; height: 300px; }
+      nav { width: 90%; gap: 1rem; padding: 1rem; }
     }
-    .modal-content {
-      background: var(--card-bg); border-radius: 24px; max-width: 750px; width: 100%; overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); position: relative; animation: pop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes pop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .modal img { width: 100%; height: 350px; object-fit: cover; background: #f1f5f9; }
-    .modal-body { padding: 2rem; }
-    .close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 10; font-size: 1.2rem; }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#education">Education</a>
-  <a href="#experience">Experience</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <div class="blob"></div>
 
-<section class="hero" id="about">
-  <div class="badge">North York, Toronto · Open to Opportunities</div>
-  <h1>Nancy Wong</h1>
-  <div class="subtitle">
-    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Strong in Python, SQL, and Power BI, focused on automation and efficiency.
-  </div>
-</section>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#experience">Work</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+  </nav>
 
-<section id="education">
-  <h2>Education</h2>
-  <div class="card">
-    <div class="role-title">University of Toronto — BASc Electrical & Computer Engineering (PEY Co-op)</div>
-    <div class="role-meta">September 2020 – April 2026</div>
-    <p>Engineering Business Minor · AI Certificate</p>
-    <p>Relevant Coursework: Software Engineering, AI Fundamentals, Introduction to Databases</p>
-    <p>Achievements: Dean’s Honour List (Fall 2025), Certificate of Recognition (ECE496 Capstone)</p>
-  </div>
-</section>
+  <section class="hero" id="about">
+    <h1>Nancy Wong</h1>
+    <p>Computer Engineering @ UofT. Building the future of automation and AI-driven experiences.</p>
+  </section>
 
-<section id="experience">
-  <h2>Experience</h2>
-  <div class="grid">
-    <div class="card">
-      <div class="role-title">Co-Founder — Isla</div>
-      <div class="role-meta">U of T Entrepreneurship Hatchery · May 2026 – Present</div>
-      <p>Selected into competitive startup accelerator supporting high-potential ventures.</p>
-      <p>Driving product strategy for AI-powered outfit decision-support platform.</p>
+  <section id="experience">
+    <h2 style="margin-bottom: 2rem; font-size: 2rem;">Experience</h2>
+    <div class="exp-grid">
+      <div class="card">
+        <h3 style="color:var(--accent)">Isla</h3>
+        <p style="font-size: 0.8rem; font-weight: bold;">Co-Founder | 2026 - Present</p>
+        <p>Leading strategy for an AI-powered wardrobe platform at the UofT Hatchery.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--accent)">Enbridge</h3>
+        <p style="font-size: 0.8rem; font-weight: bold;">IT System Analyst | 2024 - 2025</p>
+        <p>Saved 1,000+ man-hours through VBA automation and Azure DevOps integration.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--accent)">CIBC</h3>
+        <p style="font-size: 0.8rem; font-weight: bold;">App Developer | 2022</p>
+        <p>Optimized banking release cycles and performed deep API testing via Postman.</p>
+      </div>
     </div>
-    <div class="card">
-      <div class="role-title">IT System Analyst — Enbridge</div>
-      <div class="role-meta">May 2024 – August 2025</div>
-      <p>Built VBA automation reducing Azure DevOps effort by 40%.</p>
-      <p>Developed Power BI dashboards improving visibility by 30%.</p>
-      <p>Designed Power Apps solution for scheduling optimization.</p>
-    </div>
-    <div class="card">
-      <div class="role-title">Application Developer — CIBC</div>
-      <div class="role-meta">May 2022 – August 2022</div>
-      <p>Functional testing improved traceability by 50%.</p>
-      <p>Reduced release-cycle defects by 20% via Java debugging.</p>
-      <p>Performed API testing using Postman.</p>
-    </div>
-    <div class="card">
-      <div class="role-title">Communications Manager — Church</div>
-      <div class="role-meta">May 2021 – July 2021</div>
-      <p>Website redesign increased engagement by 70%.</p>
-      <p>Email campaigns using MailChimp and Canva.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="grid">
-    <div class="card clickable-card" onclick="openModal('capstone')">
-      <div class="role-title">Capstone — AI Wardrobe App</div>
-      <p>React Native + AI + caching</p>
-    </div>
-    <div class="card clickable-card" onclick="openModal('productivity')">
-      <div class="role-title">Gamified Productivity App</div>
-      <p>Digital pet task system</p>
-    </div>
-    <div class="card clickable-card" onclick="openModal('skittle')">
-      <div class="role-title">Skittle Sorter</div>
-      <p>C + Arduino system</p>
-    </div>
-    <div class="card clickable-card" onclick="openModal('floppy')">
-      <div class="role-title">Floppy Disk Music Box</div>
-      <p>C + hardware music system</p>
-    </div>
-    <div class="card clickable-card" onclick="openModal('geo')">
-      <div class="role-title">Geographical System Interface</div>
-      <p>C++ + Glade UI</p>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="card">
-    <div class="skills-container">
-      <div class="skill-group">
-        <div class="skill-label">Programming</div>
-        <div class="pill-wrapper">
-          <span class="pill">Python</span><span class="pill">Java</span><span class="pill">JavaScript</span><span class="pill">C++</span><span class="pill">C</span><span class="pill">SQL</span><span class="pill">HTML/CSS</span><span class="pill">VBA</span><span class="pill">DAX</span><span class="pill">MATLAB</span><span class="pill">Verilog</span><span class="pill">Assembly</span>
+  <section id="projects">
+    <h2 style="margin-bottom: 2rem; font-size: 2rem;">Selected Projects</h2>
+    <div class="project-grid">
+      <!-- Large Feature -->
+      <div class="project-card large" onclick="alert('Capstone project details...')">
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1000" alt="Capstone">
+        <div class="project-overlay">
+          <h3>AI Wardrobe Capstone</h3>
+          <p>React Native + AI Recommendations</p>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="skill-label">Frameworks & Tools</div>
-        <div class="pill-wrapper">
-          <span class="pill">React Native</span><span class="pill">Django</span><span class="pill">Firebase</span><span class="pill">PostgreSQL</span><span class="pill">Azure</span><span class="pill">GitHub</span><span class="pill">Azure DevOps</span><span class="pill">Power BI</span><span class="pill">Postman</span><span class="pill">Figma</span>
+
+      <!-- Tall Feature -->
+      <div class="project-card tall" onclick="alert('Gamified App details...')">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" alt="Gamified">
+        <div class="project-overlay">
+          <h3>Productivity Pet</h3>
+          <p>Gamified Task Management</p>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="skill-label">Concepts & Languages</div>
-        <div class="pill-wrapper">
-          <span class="pill">Agile</span><span class="pill">CI/CD</span><span class="pill">Full-Stack</span><span class="pill">English</span><span class="pill">Cantonese</span><span class="pill">French</span><span class="pill">Mandarin</span>
+
+      <!-- Small Feature -->
+      <div class="project-card medium">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="Arduino">
+        <div class="project-overlay">
+          <h3>Skittle Sorter</h3>
+          <p>Arduino + C</p>
+        </div>
+      </div>
+
+      <!-- Small Feature -->
+      <div class="project-card medium">
+        <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&q=80&w=800" alt="GIS">
+        <div class="project-overlay">
+          <h3>Geo Interface</h3>
+          <p>C++ GIS System</p>
+        </div>
+      </div>
+
+      <!-- Medium Feature -->
+      <div class="project-card large">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=1000" alt="Music Box">
+        <div class="project-overlay">
+          <h3>Floppy Music Box</h3>
+          <p>Hardware Engineering</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="card">
-    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-      <p>📍 North York, Toronto, ON</p>
-      <p>📞 416-391-0322</p>
-      <p>✉️ wongnancytw@gmail.com</p>
-      <p>🔗 linkedin.com/in/wongnancytw</p>
+  <section id="skills">
+    <div class="card">
+      <h2>Tech Stack</h2>
+      <div class="pill-box">
+        <span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">C++</span><span class="pill">React Native</span><span class="pill">Django</span><span class="pill">Azure</span><span class="pill">SQL</span><span class="pill">Power BI</span>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<button id="backToTop" class="back-to-top" aria-label="Back to top">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+  <button class="btt" id="btt">↑</button>
 
-<footer>© 2026 Nancy Wong</footer>
+  <footer style="text-align: center; padding: 4rem; color: var(--muted); font-size: 0.8rem;">
+    &copy; 2026 Nancy Wong..
+  </footer>
 
-<div class="modal" id="modal">
-  <div class="close" onclick="closeModal()">✕</div>
-  <div class="modal-content" id="modalContent"></div>
-</div>
+  <script>
+    // Scroll Reveal Effect
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
 
-<script>
-  // Reveal Logic
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-  }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
-  document.querySelectorAll('section').forEach(s => obs.observe(s));
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
 
-  // Init Hero
-  document.addEventListener('DOMContentLoaded', () => { document.getElementById('about').classList.add('show'); });
-
-  // Back to Top
-  const btt = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => { window.scrollY > 400 ? btt.classList.add('visible') : btt.classList.remove('visible'); });
-  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-  // Projects Data
-  const projects = {
-    capstone: { title: "Capstone — AI Wardrobe App", img: "images/Online_Outfitters_Pic.png", desc: "React Native AI wardrobe system with offline caching and recommendations." },
-    productivity: { title: "Gamified Productivity App", img: "images/Motivatchi_Pic.png", desc: "Agile-built task system with gamified digital pet mechanics." },
-    skittle: { title: "Skittle Colour Sorter", img: "images/Skittle_Sorter_Pic.png", desc: "Automated Skittle sorting machine using C and Arduino for real-time color detection." },
-    floppy: { title: "Floppy Disk Music Box", img: "images/Floppy_Disk_Music_Box_Pic.png", desc: "Engineered music system using floppy disk drive controlled via C and Arduino." },
-    geo: { title: "Geographical System Interface", img: "images/Geographical_System_Pic.png", desc: "Built C++ geospatial system with Glade UI for visualization and interaction." }
-  };
-
-  function openModal(key) {
-    const p = projects[key];
-    document.getElementById('modalContent').innerHTML = `
-      <img src="${p.img}" alt="${p.title}"/>
-      <div class="modal-body">
-        <h2>${p.title}</h2>
-        <p>${p.desc}</p>
-      </div>`;
-    document.getElementById('modal').style.display = 'flex';
-  }
-
-  function closeModal() { document.getElementById('modal').style.display = 'none'; }
-  window.onclick = e => { if (e.target.id === 'modal') closeModal(); };
-</script>
-
+    // Back to Top Logic
+    const btt = document.getElementById('btt');
+    window.onscroll = () => {
+      if (window.scrollY > 500) btt.classList.add('show');
+      else btt.classList.remove('show');
+    };
+    btt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  </script>
 </body>
 </html>
