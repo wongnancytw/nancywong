@@ -63,7 +63,7 @@
     nav a:hover { color: var(--accent-primary); }
 
     section {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
       padding: 8rem 1.5rem 4rem 1.5rem;
       opacity: 0;
@@ -165,52 +165,39 @@
     .role-meta { color: var(--accent-primary); font-size: 0.88rem; font-weight: 500; }
     .card p { color: var(--muted); font-size: 0.95rem; }
 
+    /* Skills Pill Layout */
     .skills-container { display: flex; flex-direction: column; gap: 1.5rem; }
     .skill-group { display: flex; flex-direction: column; gap: 0.5rem; }
     .skill-label { font-weight: 600; font-size: 0.9rem; color: var(--text); text-transform: uppercase; letter-spacing: 0.05em; }
     .pill-wrapper { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .pill { background: #f1f5f9; padding: 0.4rem 0.9rem; border-radius: 8px; font-size: 0.85rem; color: #334155; font-weight: 500; border: 1px solid #e2e8f0; }
 
+    /* Back to Top Button */
     .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 15px;
-      background: var(--accent-gradient);
-      color: white;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-      z-index: 1500;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
+      position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 15px;
+      background: var(--accent-gradient); color: white; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); z-index: 1500;
+      opacity: 0; visibility: hidden; transform: translateY(10px);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
 
     footer { text-align: center; padding: 5rem 2rem; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--stroke); background: #fff; }
 
+    /* Modal Styling */
     .modal {
       position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px);
       display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1.5rem;
     }
-
     .modal-content {
-      background: var(--card-bg); border-radius: 24px; max-width: 700px; width: 100%; overflow: hidden;
+      background: var(--card-bg); border-radius: 24px; max-width: 750px; width: 100%; overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); position: relative; animation: pop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     @keyframes pop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .modal img { width: 100%; height: 320px; object-fit: cover; background: #f1f5f9; }
+    .modal img { width: 100%; height: 350px; object-fit: cover; background: #f1f5f9; }
     .modal-body { padding: 2rem; }
-    .close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 10; }
+    .close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 10; font-size: 1.2rem; }
   </style>
 </head>
 <body>
@@ -228,16 +215,17 @@
   <div class="badge">North York, Toronto · Open to Opportunities</div>
   <h1>Nancy Wong</h1>
   <div class="subtitle">
-    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Focus on automation and efficiency.
+    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Strong in Python, SQL, and Power BI, focused on automation and efficiency.
   </div>
 </section>
 
 <section id="education">
   <h2>Education</h2>
   <div class="card">
-    <div class="role-title">University of Toronto — BASc Electrical & Computer Engineering</div>
+    <div class="role-title">University of Toronto — BASc Electrical & Computer Engineering (PEY Co-op)</div>
     <div class="role-meta">September 2020 – April 2026</div>
     <p>Engineering Business Minor · AI Certificate</p>
+    <p>Relevant Coursework: Software Engineering, AI Fundamentals, Introduction to Databases</p>
     <p>Achievements: Dean’s Honour List (Fall 2025), Certificate of Recognition (ECE496 Capstone)</p>
   </div>
 </section>
@@ -248,22 +236,28 @@
     <div class="card">
       <div class="role-title">Co-Founder — Isla</div>
       <div class="role-meta">U of T Entrepreneurship Hatchery · May 2026 – Present</div>
+      <p>Selected into competitive startup accelerator supporting high-potential ventures.</p>
       <p>Driving product strategy for AI-powered outfit decision-support platform.</p>
     </div>
     <div class="card">
       <div class="role-title">IT System Analyst — Enbridge</div>
       <div class="role-meta">May 2024 – August 2025</div>
       <p>Built VBA automation reducing Azure DevOps effort by 40%.</p>
+      <p>Developed Power BI dashboards improving visibility by 30%.</p>
+      <p>Designed Power Apps solution for scheduling optimization.</p>
     </div>
     <div class="card">
       <div class="role-title">Application Developer — CIBC</div>
       <div class="role-meta">May 2022 – August 2022</div>
       <p>Functional testing improved traceability by 50%.</p>
+      <p>Reduced release-cycle defects by 20% via Java debugging.</p>
+      <p>Performed API testing using Postman.</p>
     </div>
     <div class="card">
       <div class="role-title">Communications Manager — Church</div>
       <div class="role-meta">May 2021 – July 2021</div>
       <p>Website redesign increased engagement by 70%.</p>
+      <p>Email campaigns using MailChimp and Canva.</p>
     </div>
   </div>
 </section>
@@ -283,6 +277,14 @@
       <div class="role-title">Skittle Sorter</div>
       <p>C + Arduino system</p>
     </div>
+    <div class="card clickable-card" onclick="openModal('floppy')">
+      <div class="role-title">Floppy Disk Music Box</div>
+      <p>C + hardware music system</p>
+    </div>
+    <div class="card clickable-card" onclick="openModal('geo')">
+      <div class="role-title">Geographical System Interface</div>
+      <p>C++ + Glade UI</p>
+    </div>
   </div>
 </section>
 
@@ -293,13 +295,19 @@
       <div class="skill-group">
         <div class="skill-label">Programming</div>
         <div class="pill-wrapper">
-          <span class="pill">Python</span><span class="pill">Java</span><span class="pill">JavaScript</span><span class="pill">C++</span><span class="pill">SQL</span><span class="pill">VBA</span>
+          <span class="pill">Python</span><span class="pill">Java</span><span class="pill">JavaScript</span><span class="pill">C++</span><span class="pill">C</span><span class="pill">SQL</span><span class="pill">HTML/CSS</span><span class="pill">VBA</span><span class="pill">DAX</span><span class="pill">MATLAB</span><span class="pill">Verilog</span><span class="pill">Assembly</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-label">Tools</div>
+        <div class="skill-label">Frameworks & Tools</div>
         <div class="pill-wrapper">
-          <span class="pill">GitHub</span><span class="pill">Azure DevOps</span><span class="pill">Power BI</span><span class="pill">Postman</span><span class="pill">Figma</span>
+          <span class="pill">React Native</span><span class="pill">Django</span><span class="pill">Firebase</span><span class="pill">PostgreSQL</span><span class="pill">Azure</span><span class="pill">GitHub</span><span class="pill">Azure DevOps</span><span class="pill">Power BI</span><span class="pill">Postman</span><span class="pill">Figma</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Concepts & Languages</div>
+        <div class="pill-wrapper">
+          <span class="pill">Agile</span><span class="pill">CI/CD</span><span class="pill">Full-Stack</span><span class="pill">English</span><span class="pill">Cantonese</span><span class="pill">French</span><span class="pill">Mandarin</span>
         </div>
       </div>
     </div>
@@ -309,9 +317,12 @@
 <section id="contact">
   <h2>Contact</h2>
   <div class="card">
-    <p>📍 North York, Toronto, ON</p>
-    <p>✉️ wongnancytw@gmail.com</p>
-    <p>🔗 linkedin.com/in/wongnancytw</p>
+    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+      <p>📍 North York, Toronto, ON</p>
+      <p>📞 416-391-0322</p>
+      <p>✉️ wongnancytw@gmail.com</p>
+      <p>🔗 linkedin.com/in/wongnancytw</p>
+    </div>
   </div>
 </section>
 
@@ -327,37 +338,43 @@
 </div>
 
 <script>
-  // Reveal animations
+  // Reveal Logic
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
   }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
   document.querySelectorAll('section').forEach(s => obs.observe(s));
 
-  // Ensure hero shows immediately
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('about').classList.add('show');
-  });
+  // Init Hero
+  document.addEventListener('DOMContentLoaded', () => { document.getElementById('about').classList.add('show'); });
 
-  // Back to Top Logic
+  // Back to Top
   const btt = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => {
-    window.scrollY > 400 ? btt.classList.add('visible') : btt.classList.remove('visible');
-  });
+  window.addEventListener('scroll', () => { window.scrollY > 400 ? btt.classList.add('visible') : btt.classList.remove('visible'); });
   btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // Modal Logic
+  // Projects Data
   const projects = {
-    capstone: { title: "Capstone — AI Wardrobe App", img: "images/Online_Outfitters_Pic.png", desc: "React Native AI wardrobe system." },
-    productivity: { title: "Gamified Productivity App", img: "images/Motivatchi_Pic.png", desc: "Task system with digital pet." },
-    skittle: { title: "Skittle Colour Sorter", img: "images/Skittle_Sorter_Pic.png", desc: "C and Arduino sorting machine." }
+    capstone: { title: "Capstone — AI Wardrobe App", img: "images/Online_Outfitters_Pic.png", desc: "React Native AI wardrobe system with offline caching and recommendations." },
+    productivity: { title: "Gamified Productivity App", img: "images/Motivatchi_Pic.png", desc: "Agile-built task system with gamified digital pet mechanics." },
+    skittle: { title: "Skittle Colour Sorter", img: "images/Skittle_Sorter_Pic.png", desc: "Automated Skittle sorting machine using C and Arduino for real-time color detection." },
+    floppy: { title: "Floppy Disk Music Box", img: "images/Floppy_Disk_Music_Box_Pic.png", desc: "Engineered music system using floppy disk drive controlled via C and Arduino." },
+    geo: { title: "Geographical System Interface", img: "images/Geographical_System_Pic.png", desc: "Built C++ geospatial system with Glade UI for visualization and interaction." }
   };
-  function openModal(k) {
-    const p = projects[k];
-    document.getElementById('modalContent').innerHTML = `<img src="${p.img}"/><div class="modal-body"><h2>${p.title}</h2><p>${p.desc}</p></div>`;
+
+  function openModal(key) {
+    const p = projects[key];
+    document.getElementById('modalContent').innerHTML = `
+      <img src="${p.img}" alt="${p.title}"/>
+      <div class="modal-body">
+        <h2>${p.title}</h2>
+        <p>${p.desc}</p>
+      </div>`;
     document.getElementById('modal').style.display = 'flex';
   }
+
   function closeModal() { document.getElementById('modal').style.display = 'none'; }
   window.onclick = e => { if (e.target.id === 'modal') closeModal(); };
 </script>
+
 </body>
 </html>
