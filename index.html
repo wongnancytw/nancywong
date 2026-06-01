@@ -60,17 +60,15 @@
       transition: color 0.3s ease;
     }
     
-    nav a:hover {
-      color: var(--accent-primary);
-    }
+    nav a:hover { color: var(--accent-primary); }
 
     section {
       max-width: 1000px;
       margin: auto;
       padding: 8rem 1.5rem 4rem 1.5rem;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
 
     section.show {
@@ -83,7 +81,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-top: 4rem;
     }
 
     .badge {
@@ -120,7 +117,6 @@
     h2 {
       font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
       margin-bottom: 2rem;
       position: relative;
       display: inline-block;
@@ -143,19 +139,15 @@
       gap: 1.5rem;
     }
 
-    @media (min-width: 900px) {
-      #experience .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+    @media (min-width: 900px) { #experience .grid { grid-template-columns: repeat(2, 1fr); } }
 
     .card {
       padding: 2rem;
       border-radius: 20px;
       background: var(--card-bg);
       border: 1px solid var(--stroke);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -164,155 +156,61 @@
     .card:hover {
       transform: translateY(-6px);
       border-color: rgba(99, 102, 241, 0.3);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
     }
 
-    .clickable-card {
-      cursor: pointer;
-    }
+    .clickable-card { cursor: pointer; }
 
-    .role-title {
-      font-weight: 600;
-      font-size: 1.15rem;
-      color: var(--text);
-    }
+    .role-title { font-weight: 600; font-size: 1.15rem; color: var(--text); }
+    .role-meta { color: var(--accent-primary); font-size: 0.88rem; font-weight: 500; }
+    .card p { color: var(--muted); font-size: 0.95rem; }
 
-    .role-meta {
-      color: var(--accent-primary);
-      font-size: 0.88rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
+    .skills-container { display: flex; flex-direction: column; gap: 1.5rem; }
+    .skill-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .skill-label { font-weight: 600; font-size: 0.9rem; color: var(--text); text-transform: uppercase; letter-spacing: 0.05em; }
+    .pill-wrapper { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { background: #f1f5f9; padding: 0.4rem 0.9rem; border-radius: 8px; font-size: 0.85rem; color: #334155; font-weight: 500; border: 1px solid #e2e8f0; }
 
-    .card p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    /* Skills Grid Layout Transformation */
-    .skills-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .skill-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .skill-label {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .pill-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .pill {
-      background: #f1f5f9;
-      padding: 0.4rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      color: #334155;
-      font-weight: 500;
-      border: 1px solid #e2e8f0;
-    }
-
-    .contact-info {
-      font-size: 1.05rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 5rem 2rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--stroke);
-      background: #ffffff;
-    }
-
-    /* Modernized Modal */
-    .modal {
+    .back-to-top {
       position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(8px);
-      display: none;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: var(--accent-gradient);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 2000;
-      padding: 1.5rem;
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+      z-index: 1500;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    footer { text-align: center; padding: 5rem 2rem; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--stroke); background: #fff; }
+
+    .modal {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1.5rem;
     }
 
     .modal-content {
-      background: var(--card-bg);
-      border: 1px solid var(--stroke);
-      border-radius: 24px;
-      max-width: 700px;
-      width: 100%;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-      position: relative;
-      animation: pop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--card-bg); border-radius: 24px; max-width: 700px; width: 100%; overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); position: relative; animation: pop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes pop {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .modal img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      background: #f1f5f9;
-    }
-
-    .modal-body {
-      padding: 2rem;
-    }
-
-    .modal-body h2 {
-      margin-bottom: 1rem;
-    }
-
-    .modal-body p {
-      color: var(--muted);
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 36px;
-      height: 36px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-      color: var(--text);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-      transition: transform 0.2s ease;
-    }
-    
-    .close:hover {
-      transform: scale(1.05);
-    }
+    @keyframes pop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal img { width: 100%; height: 320px; object-fit: cover; background: #f1f5f9; }
+    .modal-body { padding: 2rem; }
+    .close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 10; }
   </style>
 </head>
 <body>
@@ -326,21 +224,20 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<section class="hero show" id="about">
+<section class="hero" id="about">
   <div class="badge">North York, Toronto · Open to Opportunities</div>
   <h1>Nancy Wong</h1>
   <div class="subtitle">
-    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Strong in Python, SQL, and Power BI, focused on automation and efficiency.
+    Computer Engineering graduate at the University of Toronto with 4+ years of experience building automation tools, analytics dashboards, and full-stack applications across enterprise (Enbridge, CIBC) and startup environments. Focus on automation and efficiency.
   </div>
 </section>
 
 <section id="education">
   <h2>Education</h2>
   <div class="card">
-    <div class="role-title">University of Toronto — BASc Electrical & Computer Engineering (PEY Co-op)</div>
+    <div class="role-title">University of Toronto — BASc Electrical & Computer Engineering</div>
     <div class="role-meta">September 2020 – April 2026</div>
     <p>Engineering Business Minor · AI Certificate</p>
-    <p>Relevant Coursework: Software Engineering, AI Fundamentals, Introduction to Databases</p>
     <p>Achievements: Dean’s Honour List (Fall 2025), Certificate of Recognition (ECE496 Capstone)</p>
   </div>
 </section>
@@ -348,69 +245,44 @@
 <section id="experience">
   <h2>Experience</h2>
   <div class="grid">
-
     <div class="card">
       <div class="role-title">Co-Founder — Isla</div>
       <div class="role-meta">U of T Entrepreneurship Hatchery · May 2026 – Present</div>
-      <p>Selected into competitive startup accelerator supporting high-potential ventures.</p>
       <p>Driving product strategy for AI-powered outfit decision-support platform.</p>
     </div>
-
     <div class="card">
       <div class="role-title">IT System Analyst — Enbridge</div>
       <div class="role-meta">May 2024 – August 2025</div>
       <p>Built VBA automation reducing Azure DevOps effort by 40%.</p>
-      <p>Developed Power BI dashboards improving visibility by 30%.</p>
-      <p>Designed Power Apps solution for scheduling optimization.</p>
     </div>
-
     <div class="card">
       <div class="role-title">Application Developer — CIBC</div>
       <div class="role-meta">May 2022 – August 2022</div>
       <p>Functional testing improved traceability by 50%.</p>
-      <p>Reduced release-cycle defects by 20% via Java debugging.</p>
-      <p>Performed API testing using Postman.</p>
     </div>
-
     <div class="card">
       <div class="role-title">Communications Manager — Church</div>
       <div class="role-meta">May 2021 – July 2021</div>
       <p>Website redesign increased engagement by 70%.</p>
-      <p>Email campaigns using MailChimp and Canva.</p>
     </div>
-
   </div>
 </section>
 
 <section id="projects">
   <h2>Projects</h2>
   <div class="grid">
-
     <div class="card clickable-card" onclick="openModal('capstone')">
       <div class="role-title">Capstone — AI Wardrobe App</div>
       <p>React Native + AI + caching</p>
     </div>
-
     <div class="card clickable-card" onclick="openModal('productivity')">
       <div class="role-title">Gamified Productivity App</div>
       <p>Digital pet task system</p>
     </div>
-
     <div class="card clickable-card" onclick="openModal('skittle')">
       <div class="role-title">Skittle Sorter</div>
       <p>C + Arduino system</p>
     </div>
-
-    <div class="card clickable-card" onclick="openModal('floppy')">
-      <div class="role-title">Floppy Disk Music Box</div>
-      <p>C + hardware music system</p>
-    </div>
-
-    <div class="card clickable-card" onclick="openModal('geo')">
-      <div class="role-title">Geographical System Interface</div>
-      <p>C++ + Glade UI</p>
-    </div>
-
   </div>
 </section>
 
@@ -421,43 +293,13 @@
       <div class="skill-group">
         <div class="skill-label">Programming</div>
         <div class="pill-wrapper">
-          <span class="pill">Python</span><span class="pill">Java</span><span class="pill">JavaScript</span>
-          <span class="pill">C++</span><span class="pill">C</span><span class="pill">SQL</span>
-          <span class="pill">HTML/CSS</span><span class="pill">VBA</span><span class="pill">DAX</span>
-          <span class="pill">MATLAB</span><span class="pill">Verilog</span><span class="pill">Assembly</span>
+          <span class="pill">Python</span><span class="pill">Java</span><span class="pill">JavaScript</span><span class="pill">C++</span><span class="pill">SQL</span><span class="pill">VBA</span>
         </div>
       </div>
-      
-      <div class="skill-group">
-        <div class="skill-label">Frameworks</div>
-        <div class="pill-wrapper">
-          <span class="pill">React Native</span><span class="pill">Django</span><span class="pill">Firebase</span>
-          <span class="pill">PostgreSQL</span><span class="pill">Azure</span><span class="pill">REST APIs</span>
-        </div>
-      </div>
-
       <div class="skill-group">
         <div class="skill-label">Tools</div>
         <div class="pill-wrapper">
-          <span class="pill">GitHub</span><span class="pill">Azure DevOps</span><span class="pill">Jenkins</span>
-          <span class="pill">Power BI</span><span class="pill">Postman</span><span class="pill">ServiceNow</span>
-          <span class="pill">Confluence</span><span class="pill">Figma</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-label">Concepts</div>
-        <div class="pill-wrapper">
-          <span class="pill">Agile</span><span class="pill">CI/CD</span><span class="pill">API Testing</span>
-          <span class="pill">Data Visualization</span><span class="pill">Full-Stack Development</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-label">Languages</div>
-        <div class="pill-wrapper">
-          <span class="pill">English</span><span class="pill">Cantonese</span><span class="pill">French</span>
-          <span class="pill">Mandarin</span>
+          <span class="pill">GitHub</span><span class="pill">Azure DevOps</span><span class="pill">Power BI</span><span class="pill">Postman</span><span class="pill">Figma</span>
         </div>
       </div>
     </div>
@@ -467,14 +309,15 @@
 <section id="contact">
   <h2>Contact</h2>
   <div class="card">
-    <div class="contact-info">
-      <p>📍 North York, Toronto, ON</p>
-      <p>📞 416-391-0322</p>
-      <p>✉️ wongnancytw@gmail.com</p>
-      <p>🔗 linkedin.com/in/wongnancytw</p>
-    </div>
+    <p>📍 North York, Toronto, ON</p>
+    <p>✉️ wongnancytw@gmail.com</p>
+    <p>🔗 linkedin.com/in/wongnancytw</p>
   </div>
 </section>
+
+<button id="backToTop" class="back-to-top" aria-label="Back to top">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
 
 <footer>© 2026 Nancy Wong</footer>
 
@@ -484,7 +327,37 @@
 </div>
 
 <script>
-  const sections = document.querySelectorAll('section');
+  // Reveal animations
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
+  document.querySelectorAll('section').forEach(s => obs.observe(s));
+
+  // Ensure hero shows immediately
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('about').classList.add('show');
+  });
+
+  // Back to Top Logic
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    window.scrollY > 400 ? btt.classList.add('visible') : btt.classList.remove('visible');
+  });
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Modal Logic
+  const projects = {
+    capstone: { title: "Capstone — AI Wardrobe App", img: "images/Online_Outfitters_Pic.png", desc: "React Native AI wardrobe system." },
+    productivity: { title: "Gamified Productivity App", img: "images/Motivatchi_Pic.png", desc: "Task system with digital pet." },
+    skittle: { title: "Skittle Colour Sorter", img: "images/Skittle_Sorter_Pic.png", desc: "C and Arduino sorting machine." }
+  };
+  function openModal(k) {
+    const p = projects[k];
+    document.getElementById('modalContent').innerHTML = `<img src="${p.img}"/><div class="modal-body"><h2>${p.title}</h2><p>${p.desc}</p></div>`;
+    document.getElementById('modal').style.display = 'flex';
+  }
+  function closeModal() { document.getElementById('modal').style.display = 'none'; }
+  window.onclick = e => { if (e.target.id === 'modal') closeModal(); };
+</script>
+</body>
+</html>
